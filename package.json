@@ -4,7 +4,7 @@
   "description": "Chrome extension for summarizing web pages using OpenAI API",
   "main": "index.js",
   "scripts": {
-    "build": "node utils/build.js",
+    "build": "node src/utils/build.js",
     "dev": "webpack serve --mode development",
     "watch": "webpack --mode development --watch"
   },
