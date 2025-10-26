@@ -12,5 +12,5 @@
       "js": ["content.js"],
       "run_at": "document_end"
     }
-  ],
+  ]
 }
