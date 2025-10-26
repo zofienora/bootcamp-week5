@@ -30,6 +30,16 @@ webpack(config, (err, stats) => {
     console.error('Manifest.json not found at:', manifestSrc);
   }
   
+  // Copy background script directly (unprocessed)
+  const backgroundSrc = path.join(__dirname, '../pages/Background/index.js');
+  const backgroundDest = path.join(buildDir, 'background.js');
+  if (fs.existsSync(backgroundSrc)) {
+    fs.copyFileSync(backgroundSrc, backgroundDest);
+    console.log('Background script copied directly to build directory');
+  } else {
+    console.error('Background script not found at:', backgroundSrc);
+  }
+  
   console.log('Build completed successfully!');
   console.log('Extension files are in the build/ directory');
 });
