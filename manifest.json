@@ -5,8 +5,7 @@
   "description": "Summarize web pages using OpenAI API",
   "permissions": [
     "activeTab",
-    "storage",
-    "scripting"
+    "storage"
   ],
   "background": {
     "service_worker": "background.js"
