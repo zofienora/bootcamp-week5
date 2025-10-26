@@ -14,7 +14,12 @@ fs.mkdirSync(buildDir, { recursive: true });
 // Copy manifest.json
 const manifestSrc = path.join(__dirname, '../../manifest.json');
 const manifestDest = path.join(buildDir, 'manifest.json');
-fs.copyFileSync(manifestSrc, manifestDest);
+if (fs.existsSync(manifestSrc)) {
+  fs.copyFileSync(manifestSrc, manifestDest);
+  console.log('Manifest.json copied to build directory');
+} else {
+  console.error('Manifest.json not found at:', manifestSrc);
+}
 
 // Run webpack build
 webpack(config, (err, stats) => {
