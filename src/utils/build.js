@@ -11,21 +11,23 @@ if (fs.existsSync(buildDir)) {
 }
 fs.mkdirSync(buildDir, { recursive: true });
 
-// Copy manifest.json
-const manifestSrc = path.join(__dirname, '../../manifest.json');
-const manifestDest = path.join(buildDir, 'manifest.json');
-if (fs.existsSync(manifestSrc)) {
-  fs.copyFileSync(manifestSrc, manifestDest);
-  console.log('Manifest.json copied to build directory');
-} else {
-  console.error('Manifest.json not found at:', manifestSrc);
-}
-
 // Run webpack build
 webpack(config, (err, stats) => {
   if (err || stats.hasErrors()) {
     console.error('Build failed:', err || stats.toJson().errors);
     process.exit(1);
+  }
+  
+  // Copy manifest.json after webpack build
+  const manifestSrc = path.join(__dirname, '../../manifest.json');
+  const manifestDest = path.join(buildDir, 'manifest.json');
+  console.log('Looking for manifest at:', manifestSrc);
+  console.log('Manifest exists:', fs.existsSync(manifestSrc));
+  if (fs.existsSync(manifestSrc)) {
+    fs.copyFileSync(manifestSrc, manifestDest);
+    console.log('Manifest.json copied to build directory');
+  } else {
+    console.error('Manifest.json not found at:', manifestSrc);
   }
   
   console.log('Build completed successfully!');
